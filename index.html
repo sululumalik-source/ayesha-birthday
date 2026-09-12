@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Ayesha! ❤️</title>
+    <style>
+        :root {
+            --primary: #ff4d6d;
+            --secondary: #ff758f;
+            --bg-gradient: linear-gradient(135deg, #ff758f, #ff7eb3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            text-align: center;
+            max-width: 420px;
+            width: 90%;
+            z-index: 10;
+            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        p {
+            color: #555;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 28px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-yes {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+        }
+
+        .btn-no {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+
+        .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 20px;
+            animation: floatUp 6s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        .gift-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .gift-card {
+            background: #fff0f3;
+            border: 2px solid #ff758f;
+            padding: 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--primary);
+            transition: 0.2s;
+        }
+
+        .gift-card:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="floating-hearts" id="heartsContainer"></div>
+
+    <div class="container" id="cardContainer">
+        <!-- Step 1: Do you love me? -->
+        <div id="step1" class="step">
+            <h1>Ayesha, Do you love me? ❤️</h1>
+            <div class="btn-group">
+                <button class="btn-yes" id="yesBtn" onclick="nextStep(2)">Yes! 🥰</button>
+                <button class="btn-no" id="noBtn" onclick="handleNoClick()">No 😢</button>
+            </div>
+        </div>
+
+        <!-- Step 2: How much? -->
+        <div id="step2" class="step hidden">
+            <h1>Kitna pyaar krti ho mujh se? 🌍</h1>
+            <p>Choose wisely, Meri jaan!</p>
+            <div class="btn-group" style="flex-direction: column; gap: 10px;">
+                <button class="btn-yes" style="width: 100%;" onclick="nextStep(3)">Chand taaron tak 🌙✨</button>
+                <button class="btn-yes" style="width: 100%;" onclick="nextStep(3)">Poori duniya se zyada 🌐❤️</button>
+                <button class="btn-yes" style="width: 100%;" onclick="nextStep(3)">Infinite & Beyond ♾️🔥</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Gift or Cash Selection -->
+        <div id="step3" class="step hidden">
+            <h1>Birthday Treat Choice! 🎁</h1>
+            <p>What are we claiming today?</p>
+            <div class="gift-grid">
+                <div class="gift-card" onclick="selectGift('Surprise Gift 🛍️')">Surprise Gift 🛍️</div>
+                <div class="gift-card" onclick="selectGift('Cash/Shopping Spree 💵')">Cash / Shopping 💵</div>
+                <div class="gift-card" onclick="selectGift('Dinner Date 🍽️')">Fancy Dinner 🍽️</div>
+                <div class="gift-card" onclick="selectGift('Everything! 👑')">Everything! 👑</div>
+            </div>
+        </div>
+
+        <!-- Step 4: Final Celebration -->
+        <div id="step4" class="step hidden">
+            <h1>🎉 Happy Birthday Ayesha! 🎂</h1>
+            <p id="finalMessage" style="font-weight: 500; color: #333;"></p>
+            <button class="btn-yes" onclick="location.reload()">Replay 💖</button>
+        </div>
+    </div>
+
+    <script>
+        let yesScale = 1;
+        let noClickCount = 0;
+        const noPhrases = [
+            "No 😢",
+            "Soch lo achi trah! 🥺",
+            "Dil na todo mera! 😭",
+            "Final answer?? 💔",
+            "Man jao na yr! 😩",
+            "Button badal gaya ab to! 😂"
+        ];
+
+        function handleNoClick() {
+            noClickCount++;
+            const noBtn = document.getElementById('noBtn');
+            const yesBtn = document.getElementById('yesBtn');
+            
+            if (noClickCount < noPhrases.length) {
+                noBtn.innerText = noPhrases[noClickCount];
+            }
+            
+            yesScale += 0.25;
+            yesBtn.style.transform = `scale(${yesScale})`;
+        }
+
+        function nextStep(stepNum) {
+            document.querySelectorAll('.step').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`step${stepNum}`).classList.remove('hidden');
+        }
+
+        function selectGift(choice) {
+            document.getElementById('finalMessage').innerHTML = `You selected: <b>${choice}</b>!<br><br>Meri pyari wifey, wishing you the happiest birthday ever. You make my world complete! I love you endlessly! 💕✨`;
+            nextStep(4);
+        }
+
+        // Floating background hearts generator
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = ['❤️', '💖', '✨', '💕', '🌹'][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            document.getElementById('heartsContainer').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+        setInterval(createHeart, 400);
+    </script>
+</body>
+</html>
